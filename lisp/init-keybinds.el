@@ -67,7 +67,9 @@
 )
 
 (general-def normal prog-mode-map
-  "K" 'lsp-describe-thing-at-point)
+  "K" 'lsp-describe-thing-at-point
+  "gr" 'lsp-ui-peek-find-references
+  )
 
 (general-def visual evil-mc-key-map
   "A" 'evil-mc-make-cursor-in-visual-selection-end
@@ -82,6 +84,7 @@
   "jm" 'mu4e
   "je" 'mu4e
   "jc" 'gptel
+  "jl" 'my/leetcode-view-problem
 
   ";" '(dashboard-open :which-key "dashboard")
   "b"   '(:ignore t :which-key "buffer")

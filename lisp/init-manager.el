@@ -20,7 +20,7 @@
      ("s" "~/Study/" "Study")
      ("d" "~/Downloads/"                "Downloads")
      ("v" "~/Videos/"                "Videos")
-     ("D" "~/Documents/" "Documents")
+     ("D" "~/Dev/" "Dev")
      ("p" "~/Pictures/" "Pictures")
      ("u" "~/Uni/" "Uni")
      ("c" "~/config/" "config")
@@ -82,11 +82,19 @@
 
 (winner-mode)
 
+(defun my/align ()
+  (if (>= (count-windows) 2)
+      'below
+    'right
+      )
+  )
+
 (use-package shackle
   :init
   (setq shackle-rules
-        '((lsp-help-mode :align right :size 0.4 :noselect t)
-          ("*ChatGPT*" :align right :size 0.4 :select t)
+        '((lsp-help-mode :align my/align :size 0.4 :noselect t)
+          ("*ChatGPT*" :align my/align :size 0.4 :select t)
+          ("*html*" :align my/align :size 0.38 :regexp t)
           ;; ("\\*Messages\\*" :align below :size 18 :select t)
           ;; (("^\\*vterm.*\\*$" vterm-mode) :select t :regexp t :align below :size 18)
           ;; (helpful-mode :align right :size 0.4 :select t)
@@ -98,6 +106,7 @@
   :config
  (shackle-mode)
 )
+
 
 (use-package popper
   :bind (("C-`"   . popper-toggle-latest)
@@ -246,7 +255,9 @@
   (persp-mode-prefix-key (kbd "C-c M-p"))  ; pick your own prefix key here
   :init
   (persp-mode))
-(define-key evil-normal-state-map (kbd "SPC P") 'perspective-map)
+;; (define-key evil-motion-state-map (kbd "SPC P") 'perspective-map)
+
+(evil-define-key 'motion global-map (kbd "SPC P") 'perspective-map)
 
 (use-package tramp
   :config

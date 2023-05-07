@@ -316,14 +316,14 @@
 ;;    [remap corfu-quit] 'config-corfu-quit-and-enter-normal-state))
 
 ;; Use a less aggressive completion configuration in =eshell=
-;; (use-package eshell
-;;   :after corfu
-;;   :demand t
-;;   :init
-;;   (defun config-corfu-eshell-setup ()
-;;     (setq-local corfu-auto nil)
-;;     (corfu-mode +1))
-;;   :hook (eshell-mode . config-corfu-eshell-setup))
+(use-package eshell
+  :after corfu
+  ;; :demand t
+  :init
+  (defun config-corfu-eshell-setup ()
+    (setq-local corfu-auto nil)
+    (corfu-mode +1))
+  :hook (eshell-mode . config-corfu-eshell-setup))
 
 ;; =dabbrev= - configure integration with =corfu=
   (use-package dabbrev

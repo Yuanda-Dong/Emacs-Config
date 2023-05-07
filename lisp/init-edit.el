@@ -5,7 +5,7 @@
 ;;; Code:
 (use-package undo-fu
   :demand t)
-
+(use-package vundo)
 (use-package undo-fu-session
   :config
   (setq undo-fu-session-incompatible-files '("/COMMIT_EDITMSG\\'" "/git-rebase-todo\\'")))
@@ -210,7 +210,7 @@ play well with `evil-mc'."
 
 (use-package evil-collection
   ;; :ensure nil
-  :vc (:fetcher github :repo meliache/evil-collection)
+  ;; :vc (:fetcher github :repo meliache/evil-collection)
   :after evil
   ;; :ensure t
   :config
@@ -266,34 +266,35 @@ play well with `evil-mc'."
   :hook
   (prog-mode . rainbow-delimiters-mode))
   ;; (text-mode . rainbow-delimiters-mode))
+(electric-pair-mode)
+(show-paren-mode)
+;; (use-package smartparens
+;;   ;; :hook
+;;   ;; (prog-mode . smartparens-mode)
+;;   ;; (text-mode . smartparens-mode)
+;;   ;; :demand t
+;;   ;; :general
+;;   ;; (:keymaps 'smartparens-strict-mode-map
+;;   ;;  [remap c-electric-backspace] #'sp-backward-delete-char)
+;;   ;; (:states 'insert
+;;   ;;  ")" #'sp-up-sexp)
+;;   ;; (:states 'normal
+;;   ;;  "D" #'sp-kill-hybrid-sexp)
+;;   ;; :custom
+;;   ;; (sp-show-pair-delay 0.2)
+;;   ;; (sp-show-pair-from-inside t)
+;;   ;; (sp-cancel-autoskip-on-backward-movement nil)
+;;   ;; (sp-highlight-pair-overlay nil)
+;;   ;; (sp-highlight-wrap-overlay nil)
+;;   ;; (sp-highlight-wrap-tag-overlay nil)
+;;   ;; (sp-navigate-close-if-unbalanced t)
+;;   ;; (sp-message-width nil)
+;;   :config
+;;   (require 'smartparens-config)
+;;   (smartparens-global-mode +1)
+;;   (show-paren-mode))
 
-(use-package smartparens
-  ;; :hook
-  ;; (prog-mode . smartparens-mode)
-  ;; (text-mode . smartparens-mode)
-  ;; :demand t
-  ;; :general
-  ;; (:keymaps 'smartparens-strict-mode-map
-  ;;  [remap c-electric-backspace] #'sp-backward-delete-char)
-  ;; (:states 'insert
-  ;;  ")" #'sp-up-sexp)
-  ;; (:states 'normal
-  ;;  "D" #'sp-kill-hybrid-sexp)
-  ;; :custom
-  ;; (sp-show-pair-delay 0.2)
-  ;; (sp-show-pair-from-inside t)
-  ;; (sp-cancel-autoskip-on-backward-movement nil)
-  ;; (sp-highlight-pair-overlay nil)
-  ;; (sp-highlight-wrap-overlay nil)
-  ;; (sp-highlight-wrap-tag-overlay nil)
-  ;; (sp-navigate-close-if-unbalanced t)
-  ;; (sp-message-width nil)
-  :config
-  (require 'smartparens-config)
-  (smartparens-global-mode +1)
-  (show-smartparens-global-mode +1))
-
-(show-paren-mode -1)
+;; (show-paren-mode -1)
 ;; =hideshow= - Basic code folding
 ;; (use-package hideshow
 ;;   :hook (prog-mode . hs-minor-mode)
@@ -502,6 +503,20 @@ play well with `evil-mc'."
   :after evil
 )
 
+;; (defun paste-and-indent-after ()
+;;   (interactive)
+;;   (with-undo-amagamate
+;;     (evil-paste-after 1)
+;;     (evil-indent (evil-get-marker ?\[) (evil-get-marker ?\]))))
+;; (defun paste-and-indent-before ()
+;;   (interactive)
+;;   (with-undo-amagamate
+;;     (evil-paste-before 1)
+;;     (evil-indent (evil-get-marker ?\[) (evil-get-marker ?\]))))
+
+;; Bindings for evil leader
+;; (evil-leader/set-key "p" 'paste-and-indent-after)
+;; (evil-leader/set-key "P" 'paste-and-indent-before)
 
 ;; (defun increment-number-at-point ()
 ;;   (interactive)

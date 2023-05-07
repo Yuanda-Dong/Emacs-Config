@@ -8,7 +8,7 @@
 ;;; Code:
 
 (use-package vterm
-  :hook (vterm-mode . (lambda () (set-window-fringes (selected-window) 0 0 nil)))
+  :hook (vterm-mode . (lambda () (set-window-fringes (selected-window) 0 0 t)))
   :config
   (advice-add #'vterm--redraw :after (lambda (&rest args) (evil-refresh-cursor evil-state)))
   :custom

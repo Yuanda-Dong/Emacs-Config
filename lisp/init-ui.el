@@ -47,7 +47,6 @@
 (use-package all-the-icons)
   ;; :if (display-graphic-p))
 
-
 (use-package doom-themes
   :custom
   (doom-themes-enable-bold t)    ; if nil, bold is universally disabled
@@ -62,9 +61,9 @@
   (doom-themes-org-config))
 
 ;; Modeline
-(setq display-time-format "%l:%M %p %b %d"
-      display-time-default-load-average nil)
-(display-time-mode 1)
+;; (setq display-time-format "%l:%M %p %b %d"
+;;       display-time-default-load-average nil)
+;; (display-time-mode 1)
 (column-number-mode)
 (defun modeline-contitional-buffer-encoding ()
   "Hide \"LF UTF-8\" in modeline.
@@ -104,7 +103,13 @@
     (doom-modeline-highlight-modified-buffer-name t)
     (doom-modeline-buffer-state-icon nil))
 
-
+(use-package nerd-icons
+  ;; :custom
+  ;; The Nerd Font you want to use in GUI
+  ;; "Symbols Nerd Font Mono" is the default and is recommended
+  ;; but you can use any other Nerd Font if you want
+  ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
+  )
 ;; Dashboard
 (use-package dashboard
   :init   (setq dashboard-navigator-buttons `(((,(if (fboundp 'all-the-icons-octicon) (all-the-icons-octicon "mark-github"      :height 1.0 :v-adjust  0.0) "★")
@@ -116,16 +121,20 @@
                                                (,(if (fboundp 'all-the-icons-material) (all-the-icons-material "update"         :height 1.1 :v-adjust -0.2) "♺")
                                                 "Update" "Update packages synchronously" (lambda (&rest _) (package-update-all nil)) success))))
   :config
-  (setq dashboard-banner-logo-title "My Emacs"
-        dashboard-startup-banner    "/home/me/Pictures/swappy-20230225-063700.png"
-        dashboard-show-shortcuts    t
-        dashboard-set-navigator     t
-        dashboard-set-heading-icons t
-        dashboard-set-file-icons    t
-        dashboard-set-init-info nil
-        dashboard-set-footer nil
-        initial-buffer-choice       (lambda () (get-buffer "*dashboard*")))
+  (setq
+   dashboard-icon-type 'nerd-icons
+   dashboard-banner-logo-title "My Emacs"
+   dashboard-startup-banner    "/home/me/Pictures/swappy-20230225-063700.png"
+   dashboard-show-shortcuts    t
+   dashboard-set-navigator     t
+   ;; dashboard-set-heading-icons t
+   dashboard-set-file-icons    t
+   dashboard-set-init-info nil
+   dashboard-set-footer nil
+   initial-buffer-choice       (lambda () (get-buffer "*dashboard*")))
+  ;; (setq dashboard-icon-type 'nerd-icons) ;; use `nerd-icons' package
   ;;  dashboard-projects-switch-function 'projectile-switch-project-by-name)
+   ;; )
   (setq dashboard-items '((recents  . 10)
                           (bookmarks . 5)
                           (agenda   . 5)
@@ -192,6 +201,19 @@
   :hook (Info-selection . info-colors-fontify-node)
   :hook (Info-mode      . mixed-pitch-mode))
 
+(use-package git-gutter
+  :config
+  (setq git-gutter:update-interval 0.02)
+  (global-git-gutter-mode)
+  )
+
+;; (add-hook 'find-file-hook (lambda() (if (vc-backend buffer-file-name) (git-gutter-mode))))
+
+(use-package git-gutter-fringe
+  :config
+  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 (provide 'init-ui)
 

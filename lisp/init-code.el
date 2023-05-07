@@ -9,7 +9,16 @@
 ;; (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
 ;; (add-to-list 'major-mode-remap-alist
 ;;              '(c-or-c++-mode . c-or-c++-ts-mode))
-;; (use-package leetcode)
+(use-package leetcode)
+
+
+(defun my/leetcode-view-problem ()
+  "Read an integer from user input and print it."
+  (interactive)
+  (let ((num (read-number "Enter question id: ")))
+    (leetcode-view-problem num)
+    (shell-command (format "leetup pick -l rust %d" num))
+    ))
 ;; (add-to-list 'load-path
 ;;               "~/.emacs.d/plugins/yasnippet")
 
@@ -41,7 +50,7 @@
 (use-package lsp-mode
   ;; :defer t
   ;; :ensure nil
-  ;; :vc (:fetcher github :repo emacs-lsp/lsp-mode)
+  ;; :vc (:fetcher github :repo asandroq/lsp-mode)
 
   :init
   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
@@ -198,8 +207,8 @@
 (use-package ispc-mode)
 
 (use-package lsp-treemacs
-  :config
-  (lsp-treemacs-sync-mode 1)
+ ;;  :config
+ ;; (lsp-treemacs-sync-mode 1)
 )
 
 ;; Javascript
